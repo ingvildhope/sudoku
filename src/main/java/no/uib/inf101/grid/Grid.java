@@ -1,34 +1,59 @@
 package no.uib.inf101.grid;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Grid<E> implements IGrid<E> {
-
+    private E[][] grid;
     private int rows;
     private int cols;
 
-    private List<List<E>> cells;
-
+    @SuppressWarnings("unchecked")
     public Grid(int rows, int cols) {
-        this(rows, cols, null);
+
+        this.grid = (E[][]) new Object[rows][cols];
     }
+ 
 
     public Grid(int rows, int cols, E defaultValue) {
+        this(rows, cols);
         this.rows = rows;
         this.cols = cols;
-
-        this.cells = new ArrayList<>();
-        for (int i = 0; i < rows; i++) {
-            List<E> row = new ArrayList<>();
-            for (int j = 0; j < cols; j++) {
-                row.add(defaultValue);
-            }
-            cells.add(row);
-        }
+        E[][] testGrid = (E[][]) new Object[rows][cols];
+        /*
+         * {{5, 3, 4, 6, 7, 8, 9, 1, 2},
+          {6, 7, 2, 1, 9, 5, 3, 4, 8},
+          {1, 9, 8, 3, 4, 2, 5, 6, 7},
+          {8, 5, 9, 7, 6, 1, 4, 2, 3},
+          {4, 2, 6, 8, 5, 3, 7, 9, 1},
+          {7, 1, 3, 9, 2, 4, 8, 5, 6},
+          {9, 6, 1, 5, 3, 7, 2, 8, 4},
+          {2, 8, 7, 4, 1, 9, 6, 3, 5},
+          {3, 4, 5, 2, 8, 6, 1, 7, 9}}
+         */
+        initializeBoard(rows, cols, defaultValue);
     }
+    
+  
+  private void initializeBoard(int rows, int cols, E value){
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < cols; col++) {
+        CellPosition pos = new CellPosition(row, col);
+        set(pos, value);
+      }
+    }
+  }
 
+  @Override
+  public void set(CellPosition pos, E value) {
+    int row = pos.row();
+    int col = pos.col();
+    
+    grid[row][col] = value;
+  }
+    
     @Override
     public int rows() {
         return rows;
@@ -53,18 +78,14 @@ public class Grid<E> implements IGrid<E> {
         return list.iterator();
     }
 
-    @Override
-    public void set(CellPosition pos, E value) {
-        if (!positionIsOnGrid(pos))
-            throw new IndexOutOfBoundsException("Given position is not within grid: (" + pos.row() + ", " + pos.col() + ")");
-        cells.get(pos.row()).set(pos.col(), value);
-    }
+    
 
     @Override
     public E get(CellPosition pos) {
-        if (!positionIsOnGrid(pos))
-            throw new IndexOutOfBoundsException("Given position is not within grid: (" + pos.row() + ", " + pos.col() + ")");
-        return cells.get(pos.row()).get(pos.col());
+        int row = pos.row();
+        int col = pos.col();
+    
+        return grid[row][col];
     }
 
     @Override
