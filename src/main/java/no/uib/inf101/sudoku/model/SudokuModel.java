@@ -1,10 +1,8 @@
 package no.uib.inf101.sudoku.model;
 
 import no.uib.inf101.grid.CellPosition;
-import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.sudoku.controller.ControllableSudokuModel;
-import no.uib.inf101.sudoku.model.SudokuGenerator;
 import no.uib.inf101.sudoku.view.ViewableSudokuModel;
 
 
@@ -33,7 +31,6 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   @Override
   public void setSelected(CellPosition selectedPosition) {
     this.selectedPosition = selectedPosition;
-    //board.set(selectedPosition, 0);
   }
 
   @Override

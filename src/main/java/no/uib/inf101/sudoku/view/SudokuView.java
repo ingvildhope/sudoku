@@ -87,7 +87,7 @@ public class SudokuView extends JPanel{
         CellPosition pos = new CellPosition(row, col);
         Rectangle2D box = converter.getBoundsForCell(pos);
         int number = board.get(pos);
-        System.out.println("number: " + number);
+        
 
         //g2.setColor(Color.WHITE);
         //g2.fill(box);
@@ -104,7 +104,7 @@ public class SudokuView extends JPanel{
           g2.setColor(Color.BLACK);
           g2.drawLine((int) box.getX(), (int) box.getY(), (int) box.getX() + cellSize, (int) box.getY());
         }
-        if (number != -1) {
+        if (number != 0) {
           g2.setColor(Color.BLACK);
           g2.setFont(new Font("Arial", Font.PLAIN, cellSize / 3 * 2));
           String numberString = String.valueOf(number);

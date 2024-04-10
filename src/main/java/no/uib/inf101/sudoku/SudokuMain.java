@@ -1,8 +1,11 @@
 package no.uib.inf101.sudoku;
 
+import java.lang.ModuleLayer.Controller;
+
 import javax.swing.JFrame;
 
 import no.uib.inf101.grid.CellPosition;
+import no.uib.inf101.sudoku.controller.SudokuController;
 import no.uib.inf101.sudoku.model.SudokuBoard;
 import no.uib.inf101.sudoku.model.SudokuGenerator;
 import no.uib.inf101.sudoku.model.SudokuModel;
@@ -25,10 +28,11 @@ public class SudokuMain {
     
     //SudokuBoard board = SudokuGenerator.generateBoard(); 
     SudokuBoard board = new SudokuBoard(boardSize, boardSize);
-    //SudokuGenerator gen = new SudokuGenerator(boardSize, boardSize, board);
+    SudokuGenerator gen = new SudokuGenerator(boardSize, boardSize, board);
     SudokuModel model = new SudokuModel(board);
     SudokuView view = new SudokuView(model, cellSize, margin);
-    //gen.generateBoard();
+    gen.generateBoard();
+    new SudokuController(model, view);
     /* 
     board.set(new CellPosition(0, 0), 1);
     board.set(new CellPosition(0, 8), 2);
