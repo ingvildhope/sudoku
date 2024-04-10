@@ -13,6 +13,7 @@ import no.uib.inf101.sudoku.view.CellPositionToPixelConverter;
 import no.uib.inf101.sudoku.view.SudokuView;
 
 //import inf101.sudoku.model.SudokuModel;
+//
 
 public class SudokuController extends MouseAdapter implements KeyListener{
   private ControllableSudokuModel model;
