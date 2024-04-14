@@ -1,7 +1,6 @@
 package no.uib.inf101.sudoku.view;
 
 import no.uib.inf101.grid.CellPosition;
-import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 
 public interface ViewableSudokuModel {

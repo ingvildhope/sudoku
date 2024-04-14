@@ -75,8 +75,9 @@ public class SudokuGenerator {
       for (int col = 0; col < board.cols(); col++) {
         //int number = random.nextInt(9) + 1;
         int number = incompleteValidTestBoard[row][col];
+        CellPosition pos = new CellPosition(row, col);
         //System.out.println("number: " + number);
-        board.setNumber(row, col, number);
+        board.set(pos, number);
         //System.out.println(board.get(new CellPosition(row, col)));
         /* 
         if (isValidMove(row, col, number)) {
@@ -88,7 +89,7 @@ public class SudokuGenerator {
     }
   }
 
-  private boolean isValidSolution(SudokuBoard board) {
+  public boolean isValidSolution(SudokuBoard board) {
     if (!areBoxesValid(board)) {
       return false;
     }

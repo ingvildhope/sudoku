@@ -8,8 +8,6 @@ import no.uib.inf101.sudoku.view.ViewableSudokuModel;
 
 public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel {
   private SudokuBoard board;
-  private double x;
-  private double y;
 
   private CellPosition selectedPosition = null;
 
@@ -38,6 +36,13 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
     return this.selectedPosition;
   }
 
+  @Override
+  public boolean isValueEqual(CellPosition pos1, CellPosition pos2) {
+    if ((board.get(pos1) == board.get(pos2)) && (board.get(pos2) != 0)) {
+      return true;
+    }
+    return false;
+  }
 
   public void makeGuess(int row, int col, int number) {
   /*
@@ -66,6 +71,5 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public GridDimension getDimension() {
     return board;
   }
-
 
 }

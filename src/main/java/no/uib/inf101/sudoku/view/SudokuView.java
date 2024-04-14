@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.awt.Graphics;
 import java.awt.Font;
@@ -14,13 +13,12 @@ import javax.swing.JPanel;
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
-import no.uib.inf101.sudoku.controller.SudokuController;
 import no.uib.inf101.sudoku.model.SudokuBoard;
 import no.uib.inf101.sudoku.model.SudokuModel;
 
 public class SudokuView extends JPanel{
   private ViewableSudokuModel model;
-  private SudokuController controller;
+  //private SudokuController controller;
   private ColorTheme colorTheme;
   private SudokuBoard board;
   private CellPositionToPixelConverter converter;
@@ -33,7 +31,7 @@ public class SudokuView extends JPanel{
   private int margin;
   private Rectangle2D bounds;
   private GridDimension gridSize;
-  private static final Color SELECTED_COLOR = Color.ORANGE.darker();
+  private static final Color SELECTED_COLOR = Color.decode("#B9D9EB");
   private static final Color STD_COLOR = Color.WHITE;
 
 

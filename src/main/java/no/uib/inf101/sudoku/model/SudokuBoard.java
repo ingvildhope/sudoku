@@ -2,19 +2,15 @@ package no.uib.inf101.sudoku.model;
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.Grid;
-import no.uib.inf101.grid.GridCell;
-import no.uib.inf101.sudoku.view.ViewableSudokuModel;
 
 public class SudokuBoard extends Grid<Integer>{
   private int rows;
   private int cols;
-  private int boardSize;
   
   public SudokuBoard(int rows, int cols) {
     super(rows, cols, 0);
     this.rows = rows;
     this.cols = cols;
-    this.boardSize = rows;
     /*
          * {{5, 3, 4, 6, 7, 8, 9, 1, 2},
           {6, 7, 2, 1, 9, 5, 3, 4, 8},
@@ -62,9 +58,13 @@ public class SudokuBoard extends Grid<Integer>{
     sb.trim();
     return sb.toString();
   }
-
+/* 
   public void setNumber(int row, int col, int number) {
     set(new CellPosition(row, col), number);
   }
 
+  public int getNumber(CellPosition pos) {
+    return get(pos);
+  }
+*/
 }

@@ -1,16 +1,12 @@
 package no.uib.inf101.sudoku;
 
-import java.lang.ModuleLayer.Controller;
-
 import javax.swing.JFrame;
 
-import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.sudoku.controller.SudokuController;
 import no.uib.inf101.sudoku.model.SudokuBoard;
 import no.uib.inf101.sudoku.model.SudokuGenerator;
 import no.uib.inf101.sudoku.model.SudokuModel;
 import no.uib.inf101.sudoku.view.SudokuView;
-import no.uib.inf101.sudoku.view.ViewableSudokuModel;
 
 public class SudokuMain {
   private static final int boardSize = 9;

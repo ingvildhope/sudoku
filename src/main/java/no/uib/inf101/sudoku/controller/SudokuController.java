@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import java.awt.geom.Point2D;
 
@@ -18,7 +17,7 @@ import no.uib.inf101.sudoku.view.SudokuView;
 public class SudokuController extends MouseAdapter implements KeyListener{
   private ControllableSudokuModel model;
   private SudokuView view;
-  private int guess;
+  //private int guess;
 
   public SudokuController(ControllableSudokuModel model, SudokuView view) {
     this.model = model;
@@ -34,11 +33,26 @@ public class SudokuController extends MouseAdapter implements KeyListener{
   }
 
   @Override
-  public void mousePressed(MouseEvent e) { /* ignore */
+  public void mousePressed(MouseEvent e) {
     Point2D mouseCoordinate = e.getPoint();
     CellPositionToPixelConverter converter = view.getCellPositionToPixelConverter();
     CellPosition pos = converter.getCellPositionOfPoint(mouseCoordinate);
     model.setSelected(pos);
+    System.out.println("Cell clicked: " + pos);
+    view.repaint();
+    /*
+     * endre her!!!!!!!!
+     */
+    for (int row = 0; row < 9; row++) {
+      for (int col = 0; col < 9; col++) {
+        CellPosition pos2 = new CellPosition(row, col);
+        if (model.isValueEqual(pos, pos2)) {
+          model.setSelected(pos2);
+          view.repaint();
+        }
+        view.repaint();
+      }
+    }
 
     view.repaint();
   }
@@ -60,7 +74,7 @@ public class SudokuController extends MouseAdapter implements KeyListener{
     */
 
   }
-  
+
   @Override
   public void keyPressed(KeyEvent e) {
     if (e.getKeyCode() == KeyEvent.VK_ENTER) {
