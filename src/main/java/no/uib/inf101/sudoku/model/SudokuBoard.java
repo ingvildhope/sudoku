@@ -11,17 +11,6 @@ public class SudokuBoard extends Grid<Integer>{
     super(rows, cols, 0);
     this.rows = rows;
     this.cols = cols;
-    /*
-         * {{5, 3, 4, 6, 7, 8, 9, 1, 2},
-          {6, 7, 2, 1, 9, 5, 3, 4, 8},
-          {1, 9, 8, 3, 4, 2, 5, 6, 7},
-          {8, 5, 9, 7, 6, 1, 4, 2, 3},
-          {4, 2, 6, 8, 5, 3, 7, 9, 1},
-          {7, 1, 3, 9, 2, 4, 8, 5, 6},
-          {9, 6, 1, 5, 3, 7, 2, 8, 4},
-          {2, 8, 7, 4, 1, 9, 6, 3, 5},
-          {3, 4, 5, 2, 8, 6, 1, 7, 9}}
-         */
   }
 
   public String toString() {
@@ -143,13 +132,48 @@ public class SudokuBoard extends Grid<Integer>{
     }
     return true;
   }
-/* 
-  public void setNumber(int row, int col, int number) {
-    set(new CellPosition(row, col), number);
+
+  public boolean isValidMove(CellPosition pos, SudokuBoard board) {
+    if (isValidInRow(board, pos.row(), board.get(pos)) && isValidInCol(board, pos.col(), board.get(pos)) && isValidInBox(board, pos.row(), pos.col(), board.get(pos))) {
+      return true;
+    }
+    return false;
   }
 
-  public int getNumber(CellPosition pos) {
-    return get(pos);
+  private boolean isValidInRow(SudokuBoard board, int row, int val) {
+    for (int col = 0; col < cols; col++) {
+      CellPosition pos = new CellPosition(row, col);
+
+      if (board.get(pos) == val) {
+        return true;
+      }
+    }
+    return false;  
   }
-*/
+
+  private boolean isValidInCol(SudokuBoard board, int col, int val) {
+    for (int row = 0; row < rows; row++) {
+      CellPosition pos = new CellPosition(row, col);
+
+      if (board.get(pos) == val) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean isValidInBox(SudokuBoard board, int row, int col, int val) {
+    int boxStartRow = row - row % 3;
+    int boxStartCol = col - col % 3;
+    for (int r = boxStartRow; r < boxStartRow + 3; r++) {
+      for (int c = boxStartCol; c < boxStartCol + 3; c++) {
+          
+        CellPosition pos = new CellPosition(r, c);
+        if (board.get(pos) == val) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }

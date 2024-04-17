@@ -4,11 +4,11 @@ import no.uib.inf101.sudoku.model.GuessState;
 //import javafx.scene.paint.Color;
 import java.awt.Color;
 
-public class DefaultColorTheme implements ColorTheme{
+public class DefaultColorTheme implements ColorTheme {
 
   @Override
   public Color getCellColor(int a) {
-    Color color = switch(a) {
+    Color color = switch (a) {
       case 0 -> Color.WHITE;
       default -> throw new IllegalArgumentException("No available  color for '" + a + "'");
     };
@@ -38,10 +38,24 @@ public class DefaultColorTheme implements ColorTheme{
     Color color = new Color(0, 0, 0, 180);
     return color;
   }
-  
+
   @Override
   public Color getBoarderColor() {
     Color color = Color.BLUE;
     return color;
   }
+
+  @Override
+  public Color getWelcomeColor() {
+    Color color = Color.MAGENTA;
+    return color;
+  }
+
+  @Override
+  public Color getCellTextColor() {
+    Color color = Color.BLACK;
+    return color;
+  }
+  
 }
+

@@ -1,7 +1,6 @@
 package no.uib.inf101.sudoku.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,5 +51,4 @@ public class SudokuBoardTest {
     board.set(pos, 5);
     assertEquals(5, board.get(pos));
   }
-
 }

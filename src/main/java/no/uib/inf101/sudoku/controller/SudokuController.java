@@ -31,10 +31,10 @@ public class SudokuController extends MouseAdapter implements KeyListener{
     view.addKeyListener(this);
     view.setFocusable(true);
   }
-  
+  /* 
   public void makeGuess(int row, int col, int number) {
     //model.makeGuess(row, col, number);
-  }
+  }*/
 
   @Override
   public void mousePressed(MouseEvent e) {
@@ -43,23 +43,68 @@ public class SudokuController extends MouseAdapter implements KeyListener{
       CellPositionToPixelConverter converter = view.getCellPositionToPixelConverter();
       pos = converter.getCellPositionOfPoint(mouseCoordinate);
       model.setSelected(pos);
-      System.out.println("Cell clicked: " + pos);
+      //System.out.println("Cell clicked: " + pos);
       view.repaint();
     }
   }
   
   @Override
   public void keyPressed(KeyEvent e) {
-    if (gameState == GameState.ACTIVE_GAME) {
+    if (gameState == GameState.WELCOME_SCREEN) {
+      if (e.getKeyCode() == KeyEvent.VK_E) {
+        //timer.restart();
+        model.setLevel("Easy");
+        model.startGame();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+      else if (e.getKeyCode() == KeyEvent.VK_M) {
+        //timer.restart();
+        model.setLevel("Medium");
+        model.startGame();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+      else if (e.getKeyCode() == KeyEvent.VK_H) {
+        //timer.restart();
+        model.setLevel("Hard");
+        model.startGame();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+      else if (e.getKeyCode() == KeyEvent.VK_X) {
+        //timer.restart();
+        model.setLevel("Extreme");
+        model.startGame();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+    }
+
+    else if (gameState == GameState.ACTIVE_GAME) {
       char keyPressed = e.getKeyChar();
       if (Character.isDigit(keyPressed)) {
         int digit = Character.getNumericValue(keyPressed);
         model.setNumberInCell(digit);
+        model.checkInput();
         model.isBoardFinished();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+      if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        model.returnToWelcomeState();
+        gameState = model.getGameState();
         view.repaint();
       }
     }
-    
+
+    else if (gameState == GameState.GAME_FINISHED) {
+      if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        model.returnToWelcomeState();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+    }
   }
   
   @Override public void mouseClicked(MouseEvent e) { /* ignore */ }

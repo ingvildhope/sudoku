@@ -34,14 +34,28 @@ public interface ColorTheme {
   /**
    * Returns the color of the box when the game is finished.
    * 
-   * @return The color of the game finished box.
+   * @return the color of the game finished box.
    */
   Color getGameFinishedColor();
 
   /**
    * Returns the color of the border around the box.
    * 
-   * @return The color of the boarder.
+   * @return the color of the boarder.
    */
   Color getBoarderColor();
+
+  /**
+   * Returns the color of the welcome screen.
+   * 
+   * @return the color of the welcome screen.
+   */
+  Color getWelcomeColor();
+
+  /**
+   * Returns the color of the numbers in the cells.
+   * 
+   * @return the color of the text in the cells.
+   */
+  Color getCellTextColor();
 }

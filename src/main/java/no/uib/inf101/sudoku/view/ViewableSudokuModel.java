@@ -3,7 +3,6 @@ package no.uib.inf101.sudoku.view;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.sudoku.model.GameState;
-import no.uib.inf101.sudoku.model.SudokuBoard;
 
 public interface ViewableSudokuModel {
 
@@ -29,6 +28,7 @@ public interface ViewableSudokuModel {
    */
    //Iterable<GridCell<Character>> getTilesOnBoard();
   
+
   /** 
    * @author Torstein Strømme
    * Hentet fra clickablegrid 10.04.24
@@ -58,4 +58,9 @@ public interface ViewableSudokuModel {
    * @return The current game state.
    */
   GameState getGameState();
+
+  /**
+   * Checks if the input value is legal. 
+   */
+  boolean checkInput();
 }

@@ -9,25 +9,19 @@ import no.uib.inf101.sudoku.view.ViewableSudokuModel;
 public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel {
   private SudokuBoard board;
   private GameState gameState;
+  private String level;
 
   private CellPosition selectedPosition = null;
   private int selectedValue = 0;
-
-
+ 
   public SudokuModel(SudokuBoard board) {
     this.board = board;
-    this.gameState = GameState.ACTIVE_GAME;
+    this.gameState = GameState.WELCOME_SCREEN;
   }
 
   public SudokuBoard getBoard() {
     return board;
   }
-/* 
-  @Override
-  public Iterable<GridCell<Character>> getTilesOnBoard() {
-    return board;
-  }
-*/
 
   @Override
   public void setSelected(CellPosition selectedPosition) {
@@ -54,7 +48,6 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
       selectedValue = board.get(selectedPosition);
       return selectedValue;
     } catch (NullPointerException e) {
-      System.out.println("No cell selected");
     }
 
     return -1;
@@ -63,16 +56,13 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   @Override
   public void setNumberInCell(int value) {
     board.set(selectedPosition, value);
-    if (board.get(selectedPosition) == 0) {
-      board.set(selectedPosition, value);
-    }
   }
 
   @Override
   public boolean isBoardFinished() {
     if ((board.isBoardComplete(board)) && (board.isValidSolution(board))) {
       gameState = GameState.GAME_FINISHED;
-      System.out.println("GameState: " + gameState);
+      setSelected(null);
       return true;
     }
     return false;
@@ -82,6 +72,44 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public GameState getGameState() {
     return gameState;
   }
+
+  @Override
+  public void startGame() {
+    gameState = GameState.ACTIVE_GAME;
+    SudokuGenerator gen = new SudokuGenerator(board.rows(), board.cols(), board, level);
+    gen.generateBoard();
+  }
+
+  @Override
+  public void returnToWelcomeState() {
+    gameState = GameState.WELCOME_SCREEN;
+  }
+
+  @Override
+  public void setLevel(String level) {
+    this.level = level;
+  }
+
+  @Override
+  public String getLevel() {
+    return level;
+  }
+
+  @Override
+  public boolean checkInput() {
+    if (getSelectedValue() != -1) {
+      if (board.isValidMove(selectedPosition, board))
+        System.out.println("Value OK");
+        return true;
+    }
+    System.out.println("NOT OK");
+    return false;
+  }
+
+
+
+
+
 
   @Override
   public void captureClick(CellPosition pos) {
@@ -117,7 +145,6 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
     return board;
   }
 
-  
 
 
 

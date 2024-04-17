@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.TetrisBoard;
-import no.uib.inf101.tetris.view.CellPositionToPixelConverter;
 
 public class CellPositionToPixelConverterTest {
 

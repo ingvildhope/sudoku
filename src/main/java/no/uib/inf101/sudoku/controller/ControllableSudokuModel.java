@@ -2,7 +2,6 @@ package no.uib.inf101.sudoku.controller;
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.sudoku.model.GameState;
-import no.uib.inf101.sudoku.model.SudokuBoard;
 
 public interface ControllableSudokuModel {
   /**
@@ -62,4 +61,33 @@ public interface ControllableSudokuModel {
    * @return a GameState object.
    */
   GameState getGameState();
+
+  /**
+   * Starts the game by setting the game state to ACTIVE_GAME.
+   */
+  void startGame();
+
+  /**
+   * Sets the game state to WELCOME_SCREEN.
+   */
+  void returnToWelcomeState();
+
+  /**
+   * Sets the difficulty level of the sudoku.
+   * 
+   * @param level the level of difficulty to play.
+   */
+  void setLevel(String level);
+
+  /**
+   * Returns the difficulty level of the sudoku as String.
+   * 
+   * @return the difficulty of the sudoku.
+   */
+  String getLevel();
+
+  /**
+   * Checks if the input value is legal. 
+   */
+  boolean checkInput();
 }
