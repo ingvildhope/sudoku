@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 import no.uib.inf101.grid.CellPosition;
+import no.uib.inf101.sudoku.model.GameState;
 import no.uib.inf101.sudoku.view.CellPositionToPixelConverter;
 import no.uib.inf101.sudoku.view.SudokuView;
 
@@ -17,11 +18,14 @@ import no.uib.inf101.sudoku.view.SudokuView;
 public class SudokuController extends MouseAdapter implements KeyListener{
   private ControllableSudokuModel model;
   private SudokuView view;
+  private CellPosition pos;
+  private GameState gameState;
   //private int guess;
 
   public SudokuController(ControllableSudokuModel model, SudokuView view) {
     this.model = model;
     this.view = view;
+    this.gameState = model.getGameState();
 
     view.addMouseListener(this);
     view.addKeyListener(this);
@@ -34,56 +38,31 @@ public class SudokuController extends MouseAdapter implements KeyListener{
 
   @Override
   public void mousePressed(MouseEvent e) {
-    Point2D mouseCoordinate = e.getPoint();
-    CellPositionToPixelConverter converter = view.getCellPositionToPixelConverter();
-    CellPosition pos = converter.getCellPositionOfPoint(mouseCoordinate);
-    model.setSelected(pos);
-    System.out.println("Cell clicked: " + pos);
-    view.repaint();
-    /*
-     * endre her!!!!!!!!
-     */
-    for (int row = 0; row < 9; row++) {
-      for (int col = 0; col < 9; col++) {
-        CellPosition pos2 = new CellPosition(row, col);
-        if (model.isValueEqual(pos, pos2)) {
-          model.setSelected(pos2);
-          view.repaint();
-        }
-        view.repaint();
-      }
+    if (gameState == GameState.ACTIVE_GAME) {
+      Point2D mouseCoordinate = e.getPoint();
+      CellPositionToPixelConverter converter = view.getCellPositionToPixelConverter();
+      pos = converter.getCellPositionOfPoint(mouseCoordinate);
+      model.setSelected(pos);
+      System.out.println("Cell clicked: " + pos);
+      view.repaint();
     }
-
-    view.repaint();
   }
   
   @Override
-  public void mouseClicked(MouseEvent e) {
-    /*
-    int cellSize = model.getBoard().numRows();
-    int col = e.getX() / cellSize;
-    int row = e.getY() / cellSize;
-    
-    model.makeGuess(row, col, guess);
-    
-    Point2D mouseCoordinate = e.getPoint();
-    CellPositionToPixelConverter converter = this.view.getCellPositionToPixelConverter();
-    CellPosition pos = converter.getCellPositionOfPoint(mouseCoordinate);
-    this.model.setSelected(pos);
-    this.view.repaint();
-    */
-
-  }
-
-  @Override
   public void keyPressed(KeyEvent e) {
-    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-      view.repaint();
+    if (gameState == GameState.ACTIVE_GAME) {
+      char keyPressed = e.getKeyChar();
+      if (Character.isDigit(keyPressed)) {
+        int digit = Character.getNumericValue(keyPressed);
+        model.setNumberInCell(digit);
+        model.isBoardFinished();
+        view.repaint();
+      }
     }
-    view.repaint();
+    
   }
-
- 
+  
+  @Override public void mouseClicked(MouseEvent e) { /* ignore */ }
   @Override public void mouseReleased(MouseEvent e) { /* ignore */ }
   @Override public void mouseEntered(MouseEvent e) { /* ignore */ }
   @Override public void mouseExited(MouseEvent e) { /* ignore */ }

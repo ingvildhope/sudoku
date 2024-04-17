@@ -32,5 +32,16 @@ public class DefaultColorTheme implements ColorTheme{
     };
     return color;
   }
+
+  @Override
+  public Color getGameFinishedColor() {
+    Color color = new Color(0, 0, 0, 180);
+    return color;
+  }
   
+  @Override
+  public Color getBoarderColor() {
+    Color color = Color.BLUE;
+    return color;
+  }
 }

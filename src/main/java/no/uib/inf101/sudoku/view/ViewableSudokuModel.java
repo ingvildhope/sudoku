@@ -2,6 +2,8 @@ package no.uib.inf101.sudoku.view;
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
+import no.uib.inf101.sudoku.model.GameState;
+import no.uib.inf101.sudoku.model.SudokuBoard;
 
 public interface ViewableSudokuModel {
 
@@ -27,11 +29,33 @@ public interface ViewableSudokuModel {
    */
    //Iterable<GridCell<Character>> getTilesOnBoard();
   
-    /** 
+  /** 
    * @author Torstein Strømme
    * Hentet fra clickablegrid 10.04.24
    * 
    * Gets the selected cell in the grid.  
    */
   CellPosition getSelected();
+  
+  /**
+   * Returns the value of the selected cell.
+   * 
+   * @return the value of the selected cell.
+   */
+  int getSelectedValue();
+
+  /**
+   * Returns true if the board is full and the soulution is valid, otherwise false.
+   * 
+   * @param board the board to be checked.
+   * @return true if board is full and solution is valid, otherwise false.
+   */
+  boolean isBoardFinished();
+
+  /**
+   * Retrieves the current game state.
+   * 
+   * @return The current game state.
+   */
+  GameState getGameState();
 }

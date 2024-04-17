@@ -8,12 +8,15 @@ import no.uib.inf101.sudoku.view.ViewableSudokuModel;
 
 public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel {
   private SudokuBoard board;
+  private GameState gameState;
 
   private CellPosition selectedPosition = null;
+  private int selectedValue = 0;
 
 
   public SudokuModel(SudokuBoard board) {
     this.board = board;
+    this.gameState = GameState.ACTIVE_GAME;
   }
 
   public SudokuBoard getBoard() {
@@ -44,6 +47,48 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
     return false;
   }
 
+
+  @Override
+  public int getSelectedValue() {
+    try {
+      selectedValue = board.get(selectedPosition);
+      return selectedValue;
+    } catch (NullPointerException e) {
+      System.out.println("No cell selected");
+    }
+
+    return -1;
+  }
+  
+  @Override
+  public void setNumberInCell(int value) {
+    board.set(selectedPosition, value);
+    if (board.get(selectedPosition) == 0) {
+      board.set(selectedPosition, value);
+    }
+  }
+
+  @Override
+  public boolean isBoardFinished() {
+    if ((board.isBoardComplete(board)) && (board.isValidSolution(board))) {
+      gameState = GameState.GAME_FINISHED;
+      System.out.println("GameState: " + gameState);
+      return true;
+    }
+    return false;
+  }
+  
+  @Override
+  public GameState getGameState() {
+    return gameState;
+  }
+
+  @Override
+  public void captureClick(CellPosition pos) {
+    
+  }
+
+
   public void makeGuess(int row, int col, int number) {
   /*
       if (isValidMove(row, col, number)) {
@@ -71,5 +116,9 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public GridDimension getDimension() {
     return board;
   }
+
+  
+
+
 
 }

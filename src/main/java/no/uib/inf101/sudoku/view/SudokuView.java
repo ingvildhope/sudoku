@@ -1,6 +1,7 @@
 package no.uib.inf101.sudoku.view;
 
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -18,7 +19,6 @@ import no.uib.inf101.sudoku.model.SudokuModel;
 
 public class SudokuView extends JPanel{
   private ViewableSudokuModel model;
-  //private SudokuController controller;
   private ColorTheme colorTheme;
   private SudokuBoard board;
   private CellPositionToPixelConverter converter;
@@ -31,7 +31,8 @@ public class SudokuView extends JPanel{
   private int margin;
   private Rectangle2D bounds;
   private GridDimension gridSize;
-  private static final Color SELECTED_COLOR = Color.decode("#B9D9EB");
+  private static final Color SELECTED_COLOR = Color.decode("#7CB9E8");
+  private static final Color SAME_VALUE_COLOR = SELECTED_COLOR.brighter();
   private static final Color STD_COLOR = Color.WHITE;
 
 
@@ -59,7 +60,17 @@ public class SudokuView extends JPanel{
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    drawGame(g2);
+    switch (model.getGameState()) {
+      case WELCOME_SCREEN:
+        break;
+      case ACTIVE_GAME:
+        drawGame(g2);
+        break;
+      case GAME_FINISHED:
+        drawGame(g2);
+        drawFinishedGame(g2);
+        break;
+    }
   }
 
   private void drawGame(Graphics2D g2) {
@@ -67,15 +78,15 @@ public class SudokuView extends JPanel{
 
     g2.setColor(colorTheme.getBackgroundColor());
     g2.fill(box);
-    drawBoard(g2);
+    drawCells(g2);
+    drawBoarder(g2);
   }
 
-  private void drawBoard(Graphics2D g2) {
+  private void drawBoarder(Graphics2D g2) {
+    Rectangle2D frame = new Rectangle2D.Double(xb, yb, boardSize, boardSize);
     
-    Rectangle2D box = new Rectangle2D.Double(xb - 2, yb - 2, boardSize + 5, boardSize + 5);
-    g2.setColor(Color.BLUE);
-    g2.fill(box);
-    drawCells(g2);
+    g2.setColor(colorTheme.getBoarderColor());
+    g2.draw(frame);
   }
   
   private void drawCells(Graphics2D g2) {
@@ -85,21 +96,33 @@ public class SudokuView extends JPanel{
         CellPosition pos = new CellPosition(row, col);
         Rectangle2D box = converter.getBoundsForCell(pos);
         int number = board.get(pos);
-        
+      
+        Color color = STD_COLOR;
+        System.out.println("pos: " + pos + " model.getSelected: " + model.getSelected());
 
-        //g2.setColor(Color.WHITE);
-        //g2.fill(box);
-        Color color = Objects.equals(pos, model.getSelected()) ? SELECTED_COLOR : STD_COLOR;
+        if (Objects.equals(pos, model.getSelected())) {
+          color = SELECTED_COLOR;
+        }
+        else {
+          if ((board.get(pos) == model.getSelectedValue()) && (number != 0)) {
+            color = SAME_VALUE_COLOR;
+          }
+        }
+
         g2.setColor(color);
         g2.fill(box);
         g2.setColor(Color.LIGHT_GRAY);
         g2.drawRect((int) box.getX(), (int) box.getY(), (int) box.getWidth(), (int) box.getHeight());
-        if (col % 3 == 0) {
+        if ((col % 3 == 0) && (col != 0)) {
           g2.setColor(Color.BLACK);
+          BasicStroke stroke = new BasicStroke(3);
+          g2.setStroke(stroke);
           g2.drawLine((int) box.getX(), (int) box.getY(), (int) box.getX(), (int) box.getY() + cellSize);
         }
-        if (row % 3 == 0) {
+        if ((row % 3 == 0) && (row != 0)) {
           g2.setColor(Color.BLACK);
+          BasicStroke stroke = new BasicStroke(3);
+          g2.setStroke(stroke);
           g2.drawLine((int) box.getX(), (int) box.getY(), (int) box.getX() + cellSize, (int) box.getY());
         }
         if (number != 0) {
@@ -108,10 +131,25 @@ public class SudokuView extends JPanel{
           String numberString = String.valueOf(number);
           Inf101Graphics.drawCenteredString(g2, numberString, box.getX() + (cellSize / 2), box.getY() + (cellSize / 2));
         }
-        
       }
     }
 
+  }
+  
+  private void drawFinishedGame(Graphics2D g2) {
+    g2.setColor(colorTheme.getGameFinishedColor());
+    g2.fillRect(xb, yb, boardSize, boardSize);
+
+    g2.setColor(Color.YELLOW);
+    g2.setFont(new Font("Arial", Font.BOLD, boardSize / 20));
+
+    String text = "";
+    if (model.isBoardFinished()) {
+      text = "Congratulations! You solved the Sudoku!";
+    } else {
+      text = "There seems to be a mistake!";
+    }
+    Inf101Graphics.drawCenteredString(g2, text, xb, yb - 40, boardSize, boardSize);
   }
   
   private void drawClickedCell(Graphics2D g2, CellPosition pos) {

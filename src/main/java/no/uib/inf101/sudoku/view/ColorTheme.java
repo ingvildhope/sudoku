@@ -30,4 +30,18 @@ public interface ColorTheme {
    * @return the color of the integer of the cell.
    */
   Color getIntColor(GuessState state);
+
+  /**
+   * Returns the color of the box when the game is finished.
+   * 
+   * @return The color of the game finished box.
+   */
+  Color getGameFinishedColor();
+
+  /**
+   * Returns the color of the border around the box.
+   * 
+   * @return The color of the boarder.
+   */
+  Color getBoarderColor();
 }
