@@ -8,6 +8,7 @@ import no.uib.inf101.sudoku.view.ViewableSudokuModel;
 
 public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel {
   private SudokuBoard board;
+  private SudokuBoard boardCopy;
   private GameState gameState;
   private String level;
 
@@ -34,7 +35,9 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   }
 
   @Override
-  public boolean isValueEqual(CellPosition pos1, CellPosition pos2) {
+  public boolean isValueGiven(CellPosition pos1, CellPosition pos2) {
+    
+
     if ((board.get(pos1) == board.get(pos2)) && (board.get(pos2) != 0)) {
       return true;
     }
@@ -96,11 +99,13 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   }
 
   @Override
-  public boolean checkInput() {
-    if (getSelectedValue() != -1) {
-      if (board.isValidMove(selectedPosition, board))
+  public boolean checkInput(CellPosition pos) {
+    if (getSelectedValue() > 0) {
+      if (board.isValidMove(pos, board)) {
         System.out.println("Value OK");
+        System.out.println("value of: " + getSelectedValue());
         return true;
+      }
     }
     System.out.println("NOT OK");
     return false;

@@ -86,7 +86,7 @@ public class SudokuController extends MouseAdapter implements KeyListener{
       if (Character.isDigit(keyPressed)) {
         int digit = Character.getNumericValue(keyPressed);
         model.setNumberInCell(digit);
-        model.checkInput();
+        //model.checkInput(model.getSelected());
         model.isBoardFinished();
         gameState = model.getGameState();
         view.repaint();

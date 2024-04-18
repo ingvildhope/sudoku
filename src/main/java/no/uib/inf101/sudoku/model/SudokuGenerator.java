@@ -11,6 +11,7 @@ import no.uib.inf101.grid.CellPosition;
 
 public class SudokuGenerator {
   private SudokuBoard board;
+  private SudokuBoard boardCopy;
   private static int rows;
   private static int cols;
   private static int randomInt;
@@ -55,6 +56,7 @@ public class SudokuGenerator {
      
   
   private int[][] intBoard;
+  private int[][] intBoardCopy;
      
   @SuppressWarnings("static-access")
   public SudokuGenerator(int rows, int cols, SudokuBoard board, String level) {
@@ -73,16 +75,21 @@ public class SudokuGenerator {
     try {
       intBoard = readSudokuFromFile(level, randomInt);
     } catch (FileNotFoundException e) {
-      e.printStackTrace(); 
+      e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace(); 
+      e.printStackTrace();
     }
-    
+
     fillBoard(board, intBoard);
     //fillBoard(board, incompleteValidTestBoard);
 
     System.out.println(board);
     return board;
+  }
+  
+  public SudokuBoard copyBoard() {
+    fillBoard(boardCopy, intBoard);
+    return boardCopy;
   }
   
   public static void fillBoard(SudokuBoard board, int[][] filledBoard) {

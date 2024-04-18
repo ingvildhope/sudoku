@@ -44,6 +44,7 @@ public class SudokuGeneratorTest {
   @Test
   public void isValidSolutionTest() {
     SudokuGenerator.fillBoard(board, validTestBoard);
+    System.out.println("board " + board);
     assertTrue(board.isValidSolution(board));
 
     SudokuGenerator.fillBoard(board, invalidTestBoard);

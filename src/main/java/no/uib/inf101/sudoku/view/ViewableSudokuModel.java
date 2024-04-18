@@ -62,5 +62,5 @@ public interface ViewableSudokuModel {
   /**
    * Checks if the input value is legal. 
    */
-  boolean checkInput();
+  boolean checkInput(CellPosition pos);
 }

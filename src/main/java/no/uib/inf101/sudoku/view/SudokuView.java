@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
-import no.uib.inf101.sudoku.model.GameState;
 import no.uib.inf101.sudoku.model.SudokuBoard;
 import no.uib.inf101.sudoku.model.SudokuModel;
 
@@ -86,6 +85,7 @@ public class SudokuView extends JPanel{
     g2.setColor(colorTheme.getBackgroundColor());
     g2.fill(box);
     drawCells(g2);
+    drawRedNumber(g2);
     drawBoarder(g2);
   }
 
@@ -135,13 +135,6 @@ public class SudokuView extends JPanel{
 
         if (number != 0) {
           cellTextColor = colorTheme.getCellTextColor();
-          if ((model.getGameState() == GameState.ACTIVE_GAME) && (model.getSelectedValue() != -1)) {
-            if (!model.checkInput()) {
-              System.out.println("Color is red");
-              cellTextColor = WRONG_INT_COLOR;
-            }
-            
-          }
 
           g2.setColor(cellTextColor);
           g2.setFont(new Font("Arial", Font.PLAIN, cellSize / 3 * 2));
@@ -153,6 +146,25 @@ public class SudokuView extends JPanel{
 
   }
   
+  private void drawRedNumber(Graphics2D g2) {
+    try {
+      cellTextColor = WRONG_INT_COLOR;
+      CellPosition pos = model.getSelected();
+      int value = model.getSelectedValue();
+      Rectangle2D box = converter.getBoundsForCell(pos);
+
+      if ((value > 0) && (!model.checkInput(pos))) {
+        System.out.println("Color is red");
+        
+        g2.setColor(cellTextColor);
+        g2.setFont(new Font("Arial", Font.PLAIN, cellSize / 3 * 2));
+        String numberString = String.valueOf(value);
+        Inf101Graphics.drawCenteredString(g2, numberString, box.getX() + (cellSize / 2), box.getY() + (cellSize / 2));
+      }
+    } catch (NullPointerException e) {
+    }
+  }
+
   private void drawFinishedGame(Graphics2D g2) {
     g2.setColor(colorTheme.getGameFinishedColor());
     g2.fillRect(xb, yb, boardSize, boardSize);

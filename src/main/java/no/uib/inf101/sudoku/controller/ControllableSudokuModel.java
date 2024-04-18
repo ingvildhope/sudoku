@@ -31,7 +31,7 @@ public interface ControllableSudokuModel {
    * @param pos2 position of second cell to be compared.
    * @return true if values at first and second position is equal, otherwise false.
    */
-  boolean isValueEqual(CellPosition pos1, CellPosition pos2);
+  boolean isValueGiven(CellPosition pos1, CellPosition pos2);
 
   /**
    * If the cell is not empty, then capture the value.
@@ -88,6 +88,11 @@ public interface ControllableSudokuModel {
 
   /**
    * Checks if the input value is legal. 
+   * 
+   * @param pos the position of the value to be checked.
+   * @return true if value at that posistion is valid, otherwise false.
    */
-  boolean checkInput();
+  boolean checkInput(CellPosition pos);
+
+
 }

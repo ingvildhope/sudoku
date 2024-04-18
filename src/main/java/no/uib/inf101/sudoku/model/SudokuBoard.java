@@ -134,46 +134,54 @@ public class SudokuBoard extends Grid<Integer>{
   }
 
   public boolean isValidMove(CellPosition pos, SudokuBoard board) {
-    if (isValidInRow(board, pos.row(), board.get(pos)) && isValidInCol(board, pos.col(), board.get(pos)) && isValidInBox(board, pos.row(), pos.col(), board.get(pos))) {
+    if (isValidInRow(board, pos, board.get(pos)) && isValidInCol(board, pos, board.get(pos)) && isValidInBox(board, pos, board.get(pos))) {
       return true;
     }
     return false;
   }
 
-  private boolean isValidInRow(SudokuBoard board, int row, int val) {
+  private boolean isValidInRow(SudokuBoard board, CellPosition pos, int val) {
     for (int col = 0; col < cols; col++) {
-      CellPosition pos = new CellPosition(row, col);
+      CellPosition pos1 = new CellPosition(pos.row(), col);
 
-      if (board.get(pos) == val) {
-        return true;
+      if (pos1.col() != pos.col()) {
+        if (board.get(pos1) == val) {
+          return false;
+        } 
       }
     }
-    return false;  
+    return true;  
   }
 
-  private boolean isValidInCol(SudokuBoard board, int col, int val) {
+  private boolean isValidInCol(SudokuBoard board, CellPosition pos, int val) {
     for (int row = 0; row < rows; row++) {
-      CellPosition pos = new CellPosition(row, col);
+      CellPosition pos1 = new CellPosition(row, pos.col());
 
-      if (board.get(pos) == val) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private boolean isValidInBox(SudokuBoard board, int row, int col, int val) {
-    int boxStartRow = row - row % 3;
-    int boxStartCol = col - col % 3;
-    for (int r = boxStartRow; r < boxStartRow + 3; r++) {
-      for (int c = boxStartCol; c < boxStartCol + 3; c++) {
-          
-        CellPosition pos = new CellPosition(r, c);
-        if (board.get(pos) == val) {
-          return true;
+      if (pos1.row() != pos.row()) {
+        if (board.get(pos1) == val) {
+          return false;
         }
       }
     }
-    return false;
+    return true;
+  }
+
+  private boolean isValidInBox(SudokuBoard board, CellPosition pos, int val) {
+    int boxStartRow = pos.row() - (pos.row() % 3);
+    int boxStartCol = pos.col() - (pos.col() % 3);
+    for (int r = boxStartRow; r < boxStartRow + 3; r++) {
+      for (int c = boxStartCol; c < boxStartCol + 3; c++) {
+        CellPosition pos1 = new CellPosition(r, c);
+
+        if (pos1.row() != pos.row()) {
+          if (pos1.col() != pos.col()) {
+            if (board.get(pos1) == val) {
+              return false;
+            }
+          }
+        }
+      }
+    }
+    return true;
   }
 }
