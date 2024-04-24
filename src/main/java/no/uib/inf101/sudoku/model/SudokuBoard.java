@@ -61,7 +61,6 @@ public class SudokuBoard extends Grid<Integer>{
     //this.fillBoard(incompleteValidTestBoard);
 
     boardCopy = cloneBoard();
-    //System.out.println("boardCopy: " + boardCopy);
     
     System.out.println(this);
     return this;
@@ -82,6 +81,20 @@ public class SudokuBoard extends Grid<Integer>{
     }
   }
 
+  /**
+   * I have four files with 10 000 sudokuboards each, each file is level of difficulty. 
+   * This method reads the sudoku at line number num from the file fileLevel, and returns
+   * the sudoku as a two-dimensional array of Integers.
+   * Files found at: https://www.printable-sudoku-puzzles.com/wfiles/
+   * 
+   * @param fileLevel which file to pick a sudoku from.
+   * @param rows number of rows on the board.
+   * @param cols number of cols on the board.
+   * @param num which sudoku to read from the file, a random Integer between 0 and 10 000.
+   * @return the sudoku from the file as a two-dimensional array of Integers.
+   * @throws FileNotFoundException
+   * @throws IOException
+   */
   private static int[][] readSudokuFromFile(String fileLevel, int rows, int cols, int num) throws FileNotFoundException, IOException {
     String filePath = "src/main/java/no/uib/inf101/sudoku/model/" + fileLevel + ".txt";
         
