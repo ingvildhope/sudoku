@@ -99,13 +99,13 @@ public class SudokuView extends JPanel{
     } catch (NullPointerException e) {
     }
 
-    int fontSizeLevel = 30;
+    int fontSizeLevel = 34;
     Font fontLevel = new Font("Georgia", Font.BOLD, fontSizeLevel);
     String level = model.getLevel();
 
     g2.setColor(Color.WHITE);
     g2.setFont(fontLevel);
-    Inf101Graphics.drawCenteredString(g2, level, 0, 0, preferredW, yb);
+    Inf101Graphics.drawCenteredString(g2, level, 0, 10, preferredW, yb);
 
     int fontSizeP = 15;
     Font fontP = new Font("Georgia", Font.PLAIN, fontSizeP);

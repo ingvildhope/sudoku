@@ -2,6 +2,7 @@ package no.uib.inf101.sudoku.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -102,16 +103,14 @@ public class SudokuBoardTest {
     SudokuBoard board = new SudokuBoard(9, 9);
     CellPosition pos = new CellPosition(0, 0);
     board.set(pos, 5);
+
     assertEquals(5, board.get(pos));
+    assertNotEquals(1, board.get(pos));
   }
 
   @Test
   public void isValidMoveTest() {
-    
-
     sBoard = new SudokuBoard(9, 9);
-    
-    //SudokuGenerator.fillBoard(sBoard, incompleteValidTestBoard);
     sBoard.fillBoard(incompleteValidTestBoard);
 
     CellPosition pos1 = new CellPosition(0, 8);

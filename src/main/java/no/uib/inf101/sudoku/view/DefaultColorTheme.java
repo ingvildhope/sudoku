@@ -42,7 +42,7 @@ public class DefaultColorTheme implements ColorTheme {
 
   @Override
   public Color getInputNumColor() {
-    Color color = Color.decode("#0053a8");
+    Color color = Color.decode("#1e5cd2");
     return color;
   }
 

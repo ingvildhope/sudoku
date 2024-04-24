@@ -12,8 +12,10 @@ public class DefaultColorThemeTest {
   @Test
   public void sanityDefaultColorThemeTest() {
     ColorTheme colors = new DefaultColorTheme();
+
     assertEquals(Color.decode("#72A0C1"), colors.getBackgroundColor());
     assertEquals(Color.RED, colors.getWrongIntColor());
+    
     assertNotEquals(Color.BLUE, colors.getOriginalNumColor());
     assertNotEquals(Color.decode("#0053a8"), colors.getBorderColor());
   }
