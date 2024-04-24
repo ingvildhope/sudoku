@@ -11,8 +11,7 @@ public class SudokuMain {
   private static final int boardSize = 9;
   public static final int cellSize = 40;
   private static final int margin = 0;
-  public static final String WINDOW_TITLE = "INF101 Sudoku";
-
+  public static final String WINDOW_TITLE = "Sudoku";
 
   /**
    * 

@@ -37,6 +37,12 @@ public class SudokuBoard extends Grid<Integer>{
     this.cols = cols;
   }
 
+  /**
+   * Generates a Sudoku board based on the specified difficulty level.
+   * 
+   * @param level the difficulty level of the Sudoku board to generate.
+   * @return the generated Sudoku board.
+   */
   public SudokuBoard generateBoard(String level) {
     Random random = new Random();
     randomInt = random.nextInt(10000) + 1;
@@ -55,12 +61,17 @@ public class SudokuBoard extends Grid<Integer>{
     //this.fillBoard(incompleteValidTestBoard);
 
     boardCopy = cloneBoard();
-    System.out.println("boardCopy: " + boardCopy);
+    //System.out.println("boardCopy: " + boardCopy);
     
     System.out.println(this);
     return this;
   }
 
+  /**
+   * Fills the Sudoku board with values from the provided two-dimensional array.
+   * 
+   * @param filledBoard the two-dimensional array containing the values to fill the board with.
+   */
   public void fillBoard(int[][] filledBoard) {
     for (int row = 0; row < this.rows; row++) {
       for (int col = 0; col < this.cols; col++) {
@@ -72,9 +83,8 @@ public class SudokuBoard extends Grid<Integer>{
   }
 
   private static int[][] readSudokuFromFile(String fileLevel, int rows, int cols, int num) throws FileNotFoundException, IOException {
-    String filePath = "/Users/ingvild/UiB/INF101/sem2/Ingvild.H.Hope_tetris/src/main/java/no/uib/inf101/sudoku/model/" + fileLevel
-        + ".txt";
-   
+    String filePath = "src/main/java/no/uib/inf101/sudoku/model/" + fileLevel + ".txt";
+        
     try (LineNumberReader lnr = new LineNumberReader(new FileReader(filePath))) {
       StringBuilder sb1 = new StringBuilder();
       for (String line = null; (line = lnr.readLine()) != null;) {
@@ -83,10 +93,7 @@ public class SudokuBoard extends Grid<Integer>{
           sudokuAsLine = sb1;
         }
       }
-      System.out.println("liness: " + sb1);
     }
-  
-    System.out.println("linett: " + sudokuAsLine);
     
     int[][] sudoku = new int[rows][cols];
 
@@ -100,7 +107,7 @@ public class SudokuBoard extends Grid<Integer>{
     return sudoku;
   }
 
-  public SudokuBoard cloneBoard() {
+  private SudokuBoard cloneBoard() {
     SudokuBoard clone = new SudokuBoard(rows, cols);
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < cols; col++) {
@@ -112,6 +119,12 @@ public class SudokuBoard extends Grid<Integer>{
     return clone;
   }
 
+  /**
+   * Checks if the value at the specified position in the Sudoku board is original (is a given value).
+   * 
+   * @param pos the position to check.
+   * @return true if the value is original, otherwise false.
+   */
   public boolean isPosOriginal(CellPosition pos) {
     if (boardCopy.get(pos) == 0) {
       return false;
@@ -119,7 +132,11 @@ public class SudokuBoard extends Grid<Integer>{
     return true;
   }
 
-
+  /**
+   * Returns a string representation of the Sudoku board.
+   * 
+   * @return a string representing the Sudoku board.
+   */
   public String toString() {
     int colCount = 0;
     int rowCount = 0;
@@ -155,6 +172,12 @@ public class SudokuBoard extends Grid<Integer>{
     return sb.toString();
   }
   
+  /**
+   * Checks if the given Sudoku board is a valid solution.
+   * 
+   * @param board the board to be checked.
+   * @return true if the board is a valid solution, otherwise false.
+   */
   public boolean isValidSolution(SudokuBoard board) {
     if (!areBoxesValid(board)) {
       return false;
@@ -165,7 +188,7 @@ public class SudokuBoard extends Grid<Integer>{
     if (!areRowsValid(board)) {
       return false;
     }
-    System.out.println("Valid board found");
+    //System.out.println("Valid board found");
     return true;
   }
   
@@ -226,6 +249,12 @@ public class SudokuBoard extends Grid<Integer>{
     return true;
   }
   
+  /**
+   * Checks if the given Sudoku board is complete.
+   * 
+   * @param board the board to be checked.
+   * @return true if the board is complete, otherwise false.
+   */
   public boolean isBoardComplete(SudokuBoard board) {
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < cols; col++) {
@@ -239,6 +268,13 @@ public class SudokuBoard extends Grid<Integer>{
     return true;
   }
 
+  /**
+   * Checks if placing a number in given position on the board is a valid move.
+   * 
+   * @param pos the position whose number to be checked.
+   * @param board the board on which the position is.
+   * @return true if the number is valid, otherwise false.
+   */
   public boolean isValidMove(CellPosition pos, SudokuBoard board) {
     if (isValidInRow(board, pos, board.get(pos)) && isValidInCol(board, pos, board.get(pos)) && isValidInBox(board, pos, board.get(pos))) {
       return true;
@@ -284,18 +320,8 @@ public class SudokuBoard extends Grid<Integer>{
             return false;
           }
         }
-        /* 
-        if (pos1.row() != pos.row()) {
-          if (pos1.col() != pos.col()) {
-            if (board.get(pos1) == val) {
-              return false;
-            }
-          }
-        }*/
       }
     }
     return true;
-  }
-
-  
+  }  
 }

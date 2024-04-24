@@ -1,14 +1,12 @@
 package no.uib.inf101.sudoku.controller;
 
-import javax.swing.Timer;
-
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.sudoku.model.GameState;
 
 public interface ControllableSudokuModel {
   /**
    * @author Torstein Strømme
-   * Hentet fra clickablegrid 10.04.24
+   * Hentet fra clickablegrid (https://git.app.uib.no/ii/inf101/23v/students/clickablegrid.git) 10.04.24
    * 
    * Set the selected position in the grid.
    * 
@@ -19,9 +17,11 @@ public interface ControllableSudokuModel {
 
   /** 
    * @author Torstein Strømme
-   * Hentet fra clickablegrid 10.04.24
+   * Hentet fra clickablegrid (https://git.app.uib.no/ii/inf101/23v/students/clickablegrid.git) 10.04.24
    * 
-   * Gets the selected cell in the grid.  
+   * Gets the selected cell in the grid.
+   * 
+   * @return the position of the selected cell in the grid.  
    */
   CellPosition getSelected();
 
@@ -32,23 +32,6 @@ public interface ControllableSudokuModel {
    */
   int getSelectedValue();
 
-  /**
-   * Compares the values of two positions on the board, returns true if equal, 
-   * otherwise false.
-   * 
-   * @param pos1 position of first cell to be compared.
-   * @param pos2 position of second cell to be compared.
-   * @return true if values at first and second position is equal, otherwise false.
-   */
-  boolean isValueGiven(CellPosition pos1, CellPosition pos2);
-
-  /**
-   * If the cell is not empty, then capture the value.
-   * 
-   * @param pos position of value to be captured.
-   */
-  void captureClick(CellPosition pos);
-  
   /**
    * Sets the value of a cell to the given value.
    * 
@@ -77,7 +60,8 @@ public interface ControllableSudokuModel {
   void startGame();
 
   /**
-   * Sets the game state to WELCOME_SCREEN.
+   * Sets the game state to WELCOME_SCREEN, and resets the total time paused,
+   * the selected position, and the value of the selected position.
    */
   void returnToWelcomeState();
 
@@ -104,26 +88,11 @@ public interface ControllableSudokuModel {
   String getLevel();
 
   /**
-   * Checks if the input value is legal. 
-   * 
-   * @param pos the position of the value to be checked.
-   * @return true if value at that posistion is valid, otherwise false.
-   */
-  boolean checkInput(CellPosition pos);
-
-  /**
    * Checks if the value of the given CellPosition is on the original board, 
-   * if so returns true, otherwise returns false. 
+   * if yes, returns true, otherwise returns false. 
    * 
    * @param pos the position whose value to be checked.
    * @return true if the value is original, otherwise false.
    */
   boolean isOriginal(CellPosition pos);
-
-  /**
-   * Returns the current time the user has used on the sudoku.
-   * 
-   * @return the used solving the sudoku.
-   */
-  Timer getTimePassed();
 }

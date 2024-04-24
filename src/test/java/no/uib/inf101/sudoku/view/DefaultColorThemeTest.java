@@ -1,7 +1,7 @@
 package no.uib.inf101.sudoku.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.awt.Color;
 
@@ -12,7 +12,9 @@ public class DefaultColorThemeTest {
   @Test
   public void sanityDefaultColorThemeTest() {
     ColorTheme colors = new DefaultColorTheme();
-    assertEquals(Color.PINK.darker(), colors.getBackgroundColor());
-    //assertThrows(IllegalArgumentException.class, () -> colors.getSTDCellColor());
+    assertEquals(Color.decode("#72A0C1"), colors.getBackgroundColor());
+    assertEquals(Color.RED, colors.getWrongIntColor());
+    assertNotEquals(Color.BLUE, colors.getOriginalNumColor());
+    assertNotEquals(Color.decode("#0053a8"), colors.getBorderColor());
   }
 }

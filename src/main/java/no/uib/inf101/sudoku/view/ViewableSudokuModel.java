@@ -9,21 +9,17 @@ public interface ViewableSudokuModel {
 
   /**
    * @author Torstein Strømme
-   * Hentet fra clickablegrid 10.04.24
+   * Hentet fra clickablegrid (https://git.app.uib.no/ii/inf101/23v/students/clickablegrid.git) 10.04.24
    * 
    * The dimensions of the board, number of rows and columns
    *
    * @return  an object of type GridDimension
    */
   GridDimension getDimension();
-
-  double getX();
-
-  double getY();
-
+  
   /** 
    * @author Torstein Strømme
-   * Hentet fra clickablegrid 10.04.24
+   * Hentet fra clickablegrid (https://git.app.uib.no/ii/inf101/23v/students/clickablegrid.git) 10.04.24
    * 
    * Gets the selected cell in the grid.  
    */

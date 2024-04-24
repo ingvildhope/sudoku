@@ -52,7 +52,6 @@ public class SudokuView extends JPanel{
     this.margin = margin;
     this.gridSize = model.getDimension();
 
-
     this.bounds = new Rectangle2D.Double(xb, yb, boardSize, boardSize);
     this.converter = getCellPositionToPixelConverter();
 
@@ -156,7 +155,7 @@ public class SudokuView extends JPanel{
       int value = model.getSelectedValue();
 
       if ((value > 0) && (!model.checkInput(pos))) {
-        System.out.println("Invalid value in cell");
+        //System.out.println("Invalid value in cell");
         cellTextColor = colorTheme.getWrongIntColor();
       }
       drawCell(g2, pos.row(), pos.col(), cellColor, cellTextColor);
@@ -289,7 +288,7 @@ public class SudokuView extends JPanel{
   
   /**
    * @author Torstein Strømme
-   * Hentet fra clickablegrid 10.04.24
+   * Hentet fra clickablegrid (https://git.app.uib.no/ii/inf101/23v/students/clickablegrid.git) 10.04.24
    * 
    * Gets an object which converts between CellPosition in a grid and 
    * their pixel positions on the screen.

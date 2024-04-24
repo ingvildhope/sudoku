@@ -36,7 +36,7 @@ public class CellPositionToPixelConverter {
 
   /**
    * @author Torstein Strømme
-   * Hentet fra clickablegrid 10.04.24
+   * Hentet fra clickablegrid (https://git.app.uib.no/ii/inf101/23v/students/clickablegrid.git) 10.04.24
    * 
    * Gets the CellPosition of the grid corresponding to the given (x, y)
    * coordinate. Returns null if the point does not correspond to a cell

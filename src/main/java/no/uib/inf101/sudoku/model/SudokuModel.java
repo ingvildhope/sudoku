@@ -1,19 +1,15 @@
 package no.uib.inf101.sudoku.model;
 
-import javax.swing.Timer;
-
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.sudoku.controller.ControllableSudokuModel;
 import no.uib.inf101.sudoku.view.ViewableSudokuModel;
-
 
 public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel {
   private SudokuBoard board;
   private GameState gameState;
   private String level;
   private boolean pause;
-  private Timer timer;
   private int minutes;
   private int seconds;
   private long pauseStart;
@@ -30,7 +26,6 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
     this.board = board;
     this.pause = false;
     this.gameState = GameState.WELCOME_SCREEN;
-    
   }
 
   @Override
@@ -47,17 +42,6 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public CellPosition getSelected() {
     return this.selectedPosition;
   }
-
-  @Override
-  public boolean isValueGiven(CellPosition pos1, CellPosition pos2) {
-    
-
-    if ((board.get(pos1) == board.get(pos2)) && (board.get(pos2) != 0)) {
-      return true;
-    }
-    return false;
-  }
-
 
   @Override
   public int getSelectedValue() {
@@ -100,6 +84,8 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public void returnToWelcomeState() {
     gameState = GameState.WELCOME_SCREEN;
     totalPauseTime = 0;
+    selectedPosition = null;
+    selectedValue = 0;
   }
 
   @Override
@@ -132,15 +118,15 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public boolean checkInput(CellPosition pos) {
     if (getSelectedValue() > 0) {
       if (board.isValidMove(pos, board)) {
-        System.out.println("Value OK");
-        System.out.println("value of: " + getSelectedValue());
+        //System.out.println("Value OK");
         return true;
       }
     }
-    System.out.println("NOT OK");
+    //System.out.println("NOT OK");
     return false;
   }
 
+  @Override
   public boolean isOriginal(CellPosition pos) {
     return board.isPosOriginal(pos);
   }
@@ -161,13 +147,8 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
     
     sb.append(seconds % 60);
     timeElapsed = sb.toString();
-    //System.out.println("timeE " + timeElapsed);
+    
     return timeElapsed;
-  }
-
-  @Override
-  public Timer getTimePassed() {
-    return timer;
   }
 
   @Override
@@ -178,54 +159,8 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
     return millSecs;
   }
 
-
-
-
-
-
-
-
-
-  @Override
-  public void captureClick(CellPosition pos) {
-    
-  }
-
-
-  public void makeGuess(int row, int col, int number) {
-  /*
-      if (isValidMove(row, col, number)) {
-        board.setNumber(row, col, number);
-      } 
-      else {
-        throw new IllegalArgumentException("Invalid Guess");
-      }
-      */
-  }
-
-  @Override
-  public double getX() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getX'");
-  }
-
-  @Override
-  public double getY() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getY'");
-  }
-
   @Override
   public GridDimension getDimension() {
     return board;
   }
-
-  
-
-
-  
-
-
-
-
 }

@@ -1,7 +1,5 @@
 package no.uib.inf101.sudoku.view;
 
-import no.uib.inf101.sudoku.model.GuessState;
-//import javafx.scene.paint.Color;
 import java.awt.Color;
 
 /**
@@ -36,13 +34,6 @@ public interface ColorTheme {
    * @return the background color of the game.
    */
   Color getBackgroundColor();
-
-  /**
-   * Returns the color of the integer in a cell, depending on the GuessState.
-   * @param state the GuessState of the integer typed in.
-   * @return the color of the integer of the cell.
-   */
-  Color getIntColor(GuessState state);
 
   /**
    * Returns the color of the box when the game is finished.

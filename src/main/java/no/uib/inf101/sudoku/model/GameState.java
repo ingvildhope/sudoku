@@ -1,9 +1,9 @@
 package no.uib.inf101.sudoku.model;
 
 /**
- * Represents the possible states of the Tetris game.
+ * Represents the possible states of the Sudoku game.
  * - ACTIVE_GAME: The game is active.
- * - GAME_OVER: The game has ended.
+ * - GAME_FINISHED: The game is finished.
  * - WELCOME_SCREEN: The initial screen displayed when the game is 
  * launched or when restarting.
  * - PAUSE: The game is paused.
@@ -13,5 +13,4 @@ public enum GameState {
   GAME_FINISHED,
   WELCOME_SCREEN,
   PAUSE
-
 }
