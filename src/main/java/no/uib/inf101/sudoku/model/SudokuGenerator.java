@@ -1,4 +1,4 @@
-package no.uib.inf101.sudoku.model;
+/*package no.uib.inf101.sudoku.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -93,8 +93,8 @@ public class SudokuGenerator {
   }
   
   public static void fillBoard(SudokuBoard board, int[][] filledBoard) {
-    for (int row = 0; row < rows; row++) {
-      for (int col = 0; col < cols; col++) {
+    for (int row = 0; row < board.rows(); row++) {
+      for (int col = 0; col < board.cols(); col++) {
         int number = filledBoard[row][col];
         CellPosition pos = new CellPosition(row, col);
         board.set(pos, number);
@@ -129,4 +129,4 @@ public class SudokuGenerator {
 
     return sudoku;
   }
-}
+}*/

@@ -3,6 +3,7 @@ package no.uib.inf101.sudoku.view;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.sudoku.model.GameState;
+import no.uib.inf101.sudoku.model.SudokuBoard;
 
 public interface ViewableSudokuModel {
 
@@ -19,15 +20,6 @@ public interface ViewableSudokuModel {
   double getX();
 
   double getY();
-
-   /**
-   * Retrieves an iterable object that iterates over all tiles 
-   * in the Tetris board.
-   * 
-   * @return An iterable object that iterates over all tiles in the Tetris board.
-   */
-   //Iterable<GridCell<Character>> getTilesOnBoard();
-  
 
   /** 
    * @author Torstein Strømme
@@ -63,4 +55,32 @@ public interface ViewableSudokuModel {
    * Checks if the input value is legal. 
    */
   boolean checkInput(CellPosition pos);
+
+  /**
+   * Returns the difficulty level of the sudoku as String.
+   * 
+   * @return the difficulty of the sudoku.
+   */
+  String getLevel();
+
+  /**
+   * Returns the current time the user has used on the sudoku.
+   * 
+   * @return the used solving the sudoku.
+   */
+  String getFormatedTime();
+
+  /**
+   * Returns the Sudoku board.
+   * 
+   * @return the Sudoku board.
+   */
+  SudokuBoard getBoard();
+
+  /**
+   * Retruns the number of times the time should be updated in a second.
+   * 
+   * @return the time between each time the timer updates.
+   */
+  int getMilliseconds();
 }

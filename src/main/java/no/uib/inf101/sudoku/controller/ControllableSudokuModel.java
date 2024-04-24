@@ -1,5 +1,7 @@
 package no.uib.inf101.sudoku.controller;
 
+import javax.swing.Timer;
+
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.sudoku.model.GameState;
 
@@ -22,6 +24,13 @@ public interface ControllableSudokuModel {
    * Gets the selected cell in the grid.  
    */
   CellPosition getSelected();
+
+  /**
+   * Returns the value of the selected cell.
+   * 
+   * @return the value of the selected cell.
+   */
+  int getSelectedValue();
 
   /**
    * Compares the values of two positions on the board, returns true if equal, 
@@ -73,6 +82,14 @@ public interface ControllableSudokuModel {
   void returnToWelcomeState();
 
   /**
+   * Changes the game state from active to pause, and the
+   * other way around. Returns true if game is paused, otherwise false.
+   * 
+   * @return true if game is paused, otherwise false.
+   */
+  boolean pauseGame();
+
+  /**
    * Sets the difficulty level of the sudoku.
    * 
    * @param level the level of difficulty to play.
@@ -94,5 +111,19 @@ public interface ControllableSudokuModel {
    */
   boolean checkInput(CellPosition pos);
 
+  /**
+   * Checks if the value of the given CellPosition is on the original board, 
+   * if so returns true, otherwise returns false. 
+   * 
+   * @param pos the position whose value to be checked.
+   * @return true if the value is original, otherwise false.
+   */
+  boolean isOriginal(CellPosition pos);
 
+  /**
+   * Returns the current time the user has used on the sudoku.
+   * 
+   * @return the used solving the sudoku.
+   */
+  Timer getTimePassed();
 }

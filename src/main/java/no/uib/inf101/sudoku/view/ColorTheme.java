@@ -12,10 +12,23 @@ public interface ColorTheme {
   /**
    * Returns the color associated with the given integer. 
    * 
-   * @param a the number representing the cell.
    * @return the color of the cell.
    */
-  Color getCellColor(int a);
+  Color getSTDCellColor();
+
+  /**
+   * Returns the cell color of the selected cell.
+   * 
+   * @return the color of the cell.
+   */
+  Color getSelectedCellColor();
+
+  /**
+   * Returns the cell color of cells with the same value as the selected cell.
+   * 
+   * @return the color of the cell.
+   */
+  Color getSameValueCellColor();
   
   /**
    * Returns the background color.
@@ -43,7 +56,7 @@ public interface ColorTheme {
    * 
    * @return the color of the boarder.
    */
-  Color getBoarderColor();
+  Color getBorderColor();
 
   /**
    * Returns the color of the welcome screen.
@@ -53,9 +66,23 @@ public interface ColorTheme {
   Color getWelcomeColor();
 
   /**
-   * Returns the color of the numbers in the cells.
+   * Returns the color of the original numbers in the cells.
    * 
-   * @return the color of the text in the cells.
+   * @return the color of the original numbers in the cells.
    */
-  Color getCellTextColor();
+  Color getOriginalNumColor();
+
+  /**
+   * Returns the color of the typed numbers in the cells.
+   * 
+   * @return the color of the typed numbers in the cells.
+   */
+  Color getInputNumColor();
+
+  /**
+   * Returns the color of a wrong input number in the cell.
+   * 
+   * @return the color of the incorrect input.
+   */
+  Color getWrongIntColor();
 }

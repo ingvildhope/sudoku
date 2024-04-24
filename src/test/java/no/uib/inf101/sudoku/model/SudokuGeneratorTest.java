@@ -43,17 +43,17 @@ public class SudokuGeneratorTest {
         
   @Test
   public void isValidSolutionTest() {
-    SudokuGenerator.fillBoard(board, validTestBoard);
+    board.fillBoard(validTestBoard);
     System.out.println("board " + board);
     assertTrue(board.isValidSolution(board));
 
-    SudokuGenerator.fillBoard(board, invalidTestBoard);
+    board.fillBoard(invalidTestBoard);
     assertFalse(board.isValidSolution(board));
   }
   
   @Test
   public void isBoardCompleteTest() {
-    SudokuGenerator.fillBoard(board, incompleteValidTestBoard);
+    board.fillBoard(incompleteValidTestBoard);
     assertFalse(board.isBoardComplete(board));
   }
 }

@@ -1,5 +1,7 @@
 package no.uib.inf101.sudoku.model;
 
+import javax.swing.Timer;
+
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.sudoku.controller.ControllableSudokuModel;
@@ -8,18 +10,30 @@ import no.uib.inf101.sudoku.view.ViewableSudokuModel;
 
 public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel {
   private SudokuBoard board;
-  private SudokuBoard boardCopy;
   private GameState gameState;
   private String level;
+  private boolean pause;
+  private Timer timer;
+  private int minutes;
+  private int seconds;
+  private long pauseStart;
+  private long pauseStop;
+  private long totalPauseTime;
+  private long milliseconds;
+  private String timeElapsed;
+  private long startTime;
 
   private CellPosition selectedPosition = null;
   private int selectedValue = 0;
  
   public SudokuModel(SudokuBoard board) {
     this.board = board;
+    this.pause = false;
     this.gameState = GameState.WELCOME_SCREEN;
+    
   }
 
+  @Override
   public SudokuBoard getBoard() {
     return board;
   }
@@ -52,7 +66,6 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
       return selectedValue;
     } catch (NullPointerException e) {
     }
-
     return -1;
   }
   
@@ -79,13 +92,30 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   @Override
   public void startGame() {
     gameState = GameState.ACTIVE_GAME;
-    SudokuGenerator gen = new SudokuGenerator(board.rows(), board.cols(), board, level);
-    gen.generateBoard();
+    startTime = System.currentTimeMillis();
+    board.generateBoard(level);
   }
 
   @Override
   public void returnToWelcomeState() {
     gameState = GameState.WELCOME_SCREEN;
+    totalPauseTime = 0;
+  }
+
+  @Override
+  public boolean pauseGame() {
+    pause = !pause;
+
+    if (pause) {
+      gameState = GameState.PAUSE;
+      pauseStart = System.currentTimeMillis() - startTime;
+    }
+    else {
+      gameState = GameState.ACTIVE_GAME;
+      pauseStop = System.currentTimeMillis() - startTime;
+      totalPauseTime += (pauseStop - pauseStart);
+    }
+    return pause;
   }
 
   @Override
@@ -111,6 +141,46 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
     return false;
   }
 
+  public boolean isOriginal(CellPosition pos) {
+    return board.isPosOriginal(pos);
+  }
+
+  @Override
+  public String getFormatedTime() {
+    seconds = getMilliseconds() / 1000;
+    minutes = seconds / 60;
+    StringBuilder sb = new StringBuilder();
+    if (minutes < 10) {
+      sb.append("0");
+    }
+    sb.append(minutes);
+    sb.append(":");
+    if ((seconds % 60) < 10) {
+      sb.append("0");
+    }
+    
+    sb.append(seconds % 60);
+    timeElapsed = sb.toString();
+    //System.out.println("timeE " + timeElapsed);
+    return timeElapsed;
+  }
+
+  @Override
+  public Timer getTimePassed() {
+    return timer;
+  }
+
+  @Override
+  public int getMilliseconds() {
+    milliseconds = System.currentTimeMillis() - startTime - totalPauseTime;
+    int millSecs = (int) milliseconds;
+   
+    return millSecs;
+  }
+
+
+
+
 
 
 
@@ -131,7 +201,7 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
         throw new IllegalArgumentException("Invalid Guess");
       }
       */
-    }
+  }
 
   @Override
   public double getX() {
@@ -149,6 +219,11 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public GridDimension getDimension() {
     return board;
   }
+
+  
+
+
+  
 
 
 

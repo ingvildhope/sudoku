@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import no.uib.inf101.grid.CellPosition;
 
 public class SudokuBoardTest {
-  
+  private SudokuBoard sBoard;
   
 
   @Test
@@ -69,17 +69,21 @@ public class SudokuBoardTest {
        {2, 8, 7, 4, 1, 9, 6, 3, 5},
        {3, 4, 5, 2, 8, 6, 1, 7, 0}};
 
-    SudokuBoard board = new SudokuBoard(9, 9);
-    SudokuGenerator.fillBoard(board, incompleteValidTestBoard);
+    sBoard = new SudokuBoard(9, 9);
+    
+    //SudokuGenerator.fillBoard(sBoard, incompleteValidTestBoard);
+    sBoard.fillBoard(incompleteValidTestBoard);
+
     CellPosition pos1 = new CellPosition(0, 8);
     CellPosition pos2 = new CellPosition(0, 7);
-    board.set(pos1, 2);
-    assertTrue(board.isValidMove(pos1, board));
 
-    System.out.println("boa " + board);
-    board.set(pos2, 2);
-    System.out.println("board " + board);
+    sBoard.set(pos1, 2);
+    assertTrue(sBoard.isValidMove(pos1, sBoard));
 
-    assertFalse(board.isValidMove(pos2, board));
+    System.out.println("boa " + sBoard);
+    sBoard.set(pos2, 2);
+    System.out.println("board " + sBoard);
+
+    assertFalse(sBoard.isValidMove(pos2, sBoard));
   }
 }

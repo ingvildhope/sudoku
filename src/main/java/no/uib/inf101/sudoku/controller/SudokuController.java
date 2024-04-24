@@ -1,5 +1,7 @@
 package no.uib.inf101.sudoku.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -7,34 +9,36 @@ import java.awt.event.MouseEvent;
 
 import java.awt.geom.Point2D;
 
+import javax.swing.Timer;
+
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.sudoku.model.GameState;
 import no.uib.inf101.sudoku.view.CellPositionToPixelConverter;
 import no.uib.inf101.sudoku.view.SudokuView;
-
-//import inf101.sudoku.model.SudokuModel;
-//
 
 public class SudokuController extends MouseAdapter implements KeyListener{
   private ControllableSudokuModel model;
   private SudokuView view;
   private CellPosition pos;
   private GameState gameState;
-  //private int guess;
+  private Timer timer;
 
   public SudokuController(ControllableSudokuModel model, SudokuView view) {
     this.model = model;
     this.view = view;
     this.gameState = model.getGameState();
 
+    timer =  new Timer(1000, new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        view.repaint();
+      }
+    });
+  
     view.addMouseListener(this);
     view.addKeyListener(this);
     view.setFocusable(true);
   }
-  /* 
-  public void makeGuess(int row, int col, int number) {
-    //model.makeGuess(row, col, number);
-  }*/
 
   @Override
   public void mousePressed(MouseEvent e) {
@@ -43,7 +47,6 @@ public class SudokuController extends MouseAdapter implements KeyListener{
       CellPositionToPixelConverter converter = view.getCellPositionToPixelConverter();
       pos = converter.getCellPositionOfPoint(mouseCoordinate);
       model.setSelected(pos);
-      //System.out.println("Cell clicked: " + pos);
       view.repaint();
     }
   }
@@ -51,29 +54,31 @@ public class SudokuController extends MouseAdapter implements KeyListener{
   @Override
   public void keyPressed(KeyEvent e) {
     if (gameState == GameState.WELCOME_SCREEN) {
+      timer.restart();
       if (e.getKeyCode() == KeyEvent.VK_E) {
-        //timer.restart();
+        timer.restart();
+        timer.start();
         model.setLevel("Easy");
         model.startGame();
         gameState = model.getGameState();
         view.repaint();
-      }
-      else if (e.getKeyCode() == KeyEvent.VK_M) {
-        //timer.restart();
+      } else if (e.getKeyCode() == KeyEvent.VK_M) {
+        timer.restart();
+        timer.start();
         model.setLevel("Medium");
         model.startGame();
         gameState = model.getGameState();
         view.repaint();
-      }
-      else if (e.getKeyCode() == KeyEvent.VK_H) {
-        //timer.restart();
+      } else if (e.getKeyCode() == KeyEvent.VK_H) {
+        timer.restart();
+        timer.start();
         model.setLevel("Hard");
         model.startGame();
         gameState = model.getGameState();
         view.repaint();
-      }
-      else if (e.getKeyCode() == KeyEvent.VK_X) {
-        //timer.restart();
+      } else if (e.getKeyCode() == KeyEvent.VK_X) {
+        timer.restart();
+        timer.start();
         model.setLevel("Extreme");
         model.startGame();
         gameState = model.getGameState();
@@ -82,16 +87,44 @@ public class SudokuController extends MouseAdapter implements KeyListener{
     }
 
     else if (gameState == GameState.ACTIVE_GAME) {
+      timer.restart();
       char keyPressed = e.getKeyChar();
       if (Character.isDigit(keyPressed)) {
         int digit = Character.getNumericValue(keyPressed);
-        model.setNumberInCell(digit);
-        //model.checkInput(model.getSelected());
-        model.isBoardFinished();
+        if (!model.isOriginal(model.getSelected())) {
+          model.setNumberInCell(digit);
+        }
+        if (model.isBoardFinished()) {
+          timer.stop();
+        }
         gameState = model.getGameState();
         view.repaint();
       }
-      if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+      if (e.getKeyCode() == KeyEvent.VK_P) {
+        timer.stop();
+        model.pauseGame();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+
+      else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        timer.restart();
+        model.returnToWelcomeState();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+    }
+
+    else if (gameState == GameState.PAUSE) {
+      if (e.getKeyCode() == KeyEvent.VK_P) {
+        timer.start();
+        model.pauseGame();
+        gameState = model.getGameState();
+        view.repaint();
+      }
+      else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        timer.restart();
         model.returnToWelcomeState();
         gameState = model.getGameState();
         view.repaint();
@@ -99,7 +132,9 @@ public class SudokuController extends MouseAdapter implements KeyListener{
     }
 
     else if (gameState == GameState.GAME_FINISHED) {
+      timer.stop();
       if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        timer.restart();
         model.returnToWelcomeState();
         gameState = model.getGameState();
         view.repaint();
