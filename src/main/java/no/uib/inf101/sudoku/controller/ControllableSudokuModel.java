@@ -2,6 +2,7 @@ package no.uib.inf101.sudoku.controller;
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.sudoku.model.GameState;
+import no.uib.inf101.sudoku.model.SudokuBoard;
 
 public interface ControllableSudokuModel {
   /**
@@ -42,7 +43,6 @@ public interface ControllableSudokuModel {
   /**
    * Returns true if the board is full and the soulution is valid, otherwise false.
    * 
-   * @param board the board to be checked.
    * @return true if board is full and solution is valid, otherwise false.
    */
   boolean isBoardFinished();
@@ -55,9 +55,11 @@ public interface ControllableSudokuModel {
   GameState getGameState();
 
   /**
-   * Starts the game by setting the game state to ACTIVE_GAME.
+   * Starts the game by setting the game state to ACTIVE_GAME, and generates the board.
+   * 
+   * @param startBoard the board to start the game with, null if the user selects.
    */
-  void startGame();
+  void startGame(SudokuBoard startBoard);
 
   /**
    * Sets the game state to WELCOME_SCREEN, and resets the total time paused,

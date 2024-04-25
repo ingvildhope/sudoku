@@ -74,10 +74,15 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   }
 
   @Override
-  public void startGame() {
+  public void startGame(SudokuBoard startBoard) {
     gameState = GameState.ACTIVE_GAME;
     startTime = System.currentTimeMillis();
-    board.generateBoard(level);
+    if (startBoard.equals(null)) {
+      board.generateBoard(level);
+    }
+    else {
+      board = startBoard;
+    }
   }
 
   @Override
@@ -118,11 +123,9 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public boolean checkInput(CellPosition pos) {
     if (getSelectedValue() > 0) {
       if (board.isValidMove(pos, board)) {
-        //System.out.println("Value OK");
         return true;
       }
     }
-    //System.out.println("NOT OK");
     return false;
   }
 

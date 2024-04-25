@@ -39,7 +39,7 @@ public class SudokuModelTest {
     SudokuModel model = new SudokuModel(board);
     board.fillBoard(validTestBoard);
 
-    model.startGame();
+    model.startGame(board);
 
     assertEquals(GameState.ACTIVE_GAME, model.getGameState());
   }
@@ -50,7 +50,7 @@ public class SudokuModelTest {
     SudokuModel model = new SudokuModel(board);
     board.fillBoard(validTestBoard);
 
-    model.startGame();
+    model.startGame(board);
     model.pauseGame();
     
     assertEquals(GameState.PAUSE, model.getGameState());
@@ -62,7 +62,7 @@ public class SudokuModelTest {
     SudokuModel model = new SudokuModel(board);
     board.fillBoard(validTestBoard);
 
-    model.startGame();
+    model.startGame(board);
     model.returnToWelcomeState(); 
 
     assertEquals(GameState.WELCOME_SCREEN, model.getGameState()); 

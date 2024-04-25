@@ -13,6 +13,7 @@ import javax.swing.Timer;
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.sudoku.model.GameState;
+import no.uib.inf101.sudoku.model.SudokuBoard;
 import no.uib.inf101.sudoku.view.CellPositionToPixelConverter;
 import no.uib.inf101.sudoku.view.SudokuView;
 
@@ -22,11 +23,13 @@ public class SudokuController extends MouseAdapter implements KeyListener{
   private CellPosition pos;
   private GameState gameState;
   private Timer timer;
+  private SudokuBoard board;
 
   public SudokuController(ControllableSudokuModel model, SudokuView view) {
     this.model = model;
     this.view = view;
     this.gameState = model.getGameState();
+    this.board = null;
 
     timer =  new Timer(1000, new ActionListener() {
       @Override
@@ -59,28 +62,28 @@ public class SudokuController extends MouseAdapter implements KeyListener{
         timer.restart();
         timer.start();
         model.setLevel("Easy");
-        model.startGame();
+        model.startGame(board);
         gameState = model.getGameState();
         view.repaint();
       } else if (e.getKeyCode() == KeyEvent.VK_M) {
         timer.restart();
         timer.start();
         model.setLevel("Medium");
-        model.startGame();
+        model.startGame(board);
         gameState = model.getGameState();
         view.repaint();
       } else if (e.getKeyCode() == KeyEvent.VK_H) {
         timer.restart();
         timer.start();
         model.setLevel("Hard");
-        model.startGame();
+        model.startGame(board);
         gameState = model.getGameState();
         view.repaint();
       } else if (e.getKeyCode() == KeyEvent.VK_X) {
         timer.restart();
         timer.start();
         model.setLevel("Extreme");
-        model.startGame();
+        model.startGame(board);
         gameState = model.getGameState();
         view.repaint();
       }

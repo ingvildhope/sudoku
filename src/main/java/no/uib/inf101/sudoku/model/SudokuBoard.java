@@ -13,7 +13,7 @@ import no.uib.inf101.grid.Grid;
 public class SudokuBoard extends Grid<Integer>{
   private int rows;
   private int cols;
-  private static int randomInt;
+  private static int boardNumber;
   private static StringBuilder sudokuAsLine = new StringBuilder();
   private int[][] intBoard;
   private SudokuBoard boardCopy;
@@ -45,12 +45,12 @@ public class SudokuBoard extends Grid<Integer>{
    */
   public SudokuBoard generateBoard(String level) {
     Random random = new Random();
-    randomInt = random.nextInt(10000) + 1;
-    System.out.println("randInt: " + randomInt);
+    boardNumber = random.nextInt(10000) + 1;
+    System.out.println("boardNumber: " + boardNumber);
     System.out.println("level: " + level);
 
     try {
-      intBoard = readSudokuFromFile(level, rows, cols, randomInt);
+      intBoard = readSudokuFromFile(level, rows, cols, boardNumber);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -96,8 +96,8 @@ public class SudokuBoard extends Grid<Integer>{
    * @throws IOException
    */
   private static int[][] readSudokuFromFile(String fileLevel, int rows, int cols, int num) throws FileNotFoundException, IOException {
-    String filePath = "src/main/java/no/uib/inf101/sudoku/model/" + fileLevel + ".txt";
-        
+    String filePath = "src/main/java/no/uib/inf101/sudoku/model/data/" + fileLevel + ".txt";
+  
     try (LineNumberReader lnr = new LineNumberReader(new FileReader(filePath))) {
       StringBuilder sb1 = new StringBuilder();
       for (String line = null; (line = lnr.readLine()) != null;) {

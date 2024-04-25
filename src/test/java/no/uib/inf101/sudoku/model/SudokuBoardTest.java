@@ -96,7 +96,6 @@ public class SudokuBoardTest {
     assertEquals(9, board.rows());
     assertEquals(9, board.cols());
   }
-    
 
   @Test
   public void setAndGetTest() {

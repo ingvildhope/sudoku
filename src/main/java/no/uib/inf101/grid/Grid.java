@@ -11,8 +11,9 @@ public class Grid<E> implements IGrid<E> {
 
   @SuppressWarnings("unchecked")
   public Grid(int rows, int cols) {
-
     this.grid = (E[][]) new Object[rows][cols];
+    this.rows = rows;
+    this.cols = cols;
   }
 
 
