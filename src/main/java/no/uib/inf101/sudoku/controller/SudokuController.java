@@ -13,7 +13,6 @@ import javax.swing.Timer;
 
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.sudoku.model.GameState;
-import no.uib.inf101.sudoku.model.SudokuBoard;
 import no.uib.inf101.sudoku.view.CellPositionToPixelConverter;
 import no.uib.inf101.sudoku.view.SudokuView;
 
