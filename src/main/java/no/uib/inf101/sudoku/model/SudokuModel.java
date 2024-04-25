@@ -77,7 +77,7 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   public void startGame(SudokuBoard startBoard) {
     gameState = GameState.ACTIVE_GAME;
     startTime = System.currentTimeMillis();
-    if (startBoard.equals(null)) {
+    if (startBoard == null) {
       board.generateBoard(level);
     }
     else {
