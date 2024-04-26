@@ -2,6 +2,8 @@ package no.uib.inf101.sudoku.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -34,7 +36,7 @@ public class SudokuModelTest {
    {3, 4, 5, 2, 8, 6, 1, 7, 0}};
 
    @Test
-  void testStartGame() {
+  public void testStartGame() {
     SudokuBoard board = new SudokuBoard(9, 9);
     SudokuModel model = new SudokuModel(board);
     board.fillBoard(validTestBoard);
@@ -45,7 +47,7 @@ public class SudokuModelTest {
   }
 
   @Test
-  void testPauseGame() {
+  public void testPauseGame() {
     SudokuBoard board = new SudokuBoard(9, 9);
     SudokuModel model = new SudokuModel(board);
     board.fillBoard(validTestBoard);
@@ -57,7 +59,7 @@ public class SudokuModelTest {
   }
 
   @Test
-  void testReturnToWelcomeState() {
+  public void testReturnToWelcomeState() {
     SudokuBoard board = new SudokuBoard(9, 9);
     SudokuModel model = new SudokuModel(board);
     board.fillBoard(validTestBoard);
@@ -71,7 +73,7 @@ public class SudokuModelTest {
   }
 
   @Test
-  void testCheckInput() {
+  public void testCheckInput() {
     SudokuBoard board = new SudokuBoard(9, 9);
     SudokuModel model = new SudokuModel(board);
     board.fillBoard(incompleteValidTestBoard);
@@ -90,7 +92,7 @@ public class SudokuModelTest {
   }
 
   @Test
-  void testIsBoardFinished() {
+  public void testIsBoardFinished() {
     SudokuBoard board = new SudokuBoard(9, 9);
     SudokuModel model = new SudokuModel(board);
     board.fillBoard(incompleteValidTestBoard);
@@ -100,5 +102,65 @@ public class SudokuModelTest {
     board.fillBoard(validTestBoard);
 
     assertTrue(model.isBoardFinished());
+  }
+
+  @Test 
+  public void testSetAndGetSelected() {
+    SudokuBoard board = new SudokuBoard(9, 9);
+    SudokuModel model = new SudokuModel(board);
+    board.fillBoard(incompleteValidTestBoard);
+
+    CellPosition pos = new CellPosition(0, 8);
+    int value = 2;
+
+    assertEquals(-1, model.getSelectedValue());
+    assertNull(model.getSelected());
+
+    model.setSelected(pos);
+    model.setNumberInCell(value);
+
+    assertEquals(pos, model.getSelected());
+    assertEquals(value, model.getSelectedValue());
+  }
+
+  @Test
+  public void testSetAndGetLevel() {
+    SudokuBoard board = new SudokuBoard(9, 9);
+    SudokuModel model = new SudokuModel(board);
+
+    String level = "Easy";
+    String level2 = "Medium";
+    model.setLevel(level);
+
+    assertEquals(level, model.getLevel());
+    assertNotEquals(level2, model.getLevel());
+  }
+
+  @Test
+  public void testGetFormatedTime() {
+    SudokuBoard board = new SudokuBoard(9, 9);
+    SudokuModel model = new SudokuModel(board);
+    board.fillBoard(incompleteValidTestBoard);
+
+    String time = model.getFormatedTime();
+    assertNotNull(time);
+  }
+
+  @Test
+  public void testGetMilliseconds() {
+    SudokuBoard board = new SudokuBoard(9, 9);
+    SudokuModel model = new SudokuModel(board);
+
+    int milliseconds = model.getMilliseconds();
+    assertNotNull(milliseconds);
+  }
+
+  @Test
+  public void testGetDimension() {
+    SudokuBoard board = new SudokuBoard(9, 9);
+    SudokuModel model = new SudokuModel(board);
+
+    assertEquals(9, model.getDimension().rows());
+    assertEquals(9, model.getDimension().cols());
   }
 }

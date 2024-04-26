@@ -30,7 +30,6 @@ public class SudokuBoard extends Grid<Integer>{
      {2, 8, 7, 4, 1, 9, 6, 3, 5},
      {3, 4, 5, 2, 8, 6, 1, 7, 9}};
      
-  
   public SudokuBoard(int rows, int cols) {
     super(rows, cols, 0);
     this.rows = rows;
@@ -58,7 +57,7 @@ public class SudokuBoard extends Grid<Integer>{
     }
 
     this.fillBoard(intBoard);
-    //this.fillBoard(incompleteValidTestBoard);
+    //this.fillBoard(incompleteValidTestBoard);   // Nearly full test board for easy testing. 
 
     boardCopy = cloneBoard();
     

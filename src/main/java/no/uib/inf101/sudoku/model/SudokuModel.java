@@ -29,11 +29,6 @@ public class SudokuModel implements ViewableSudokuModel, ControllableSudokuModel
   }
 
   @Override
-  public SudokuBoard getBoard() {
-    return board;
-  }
-
-  @Override
   public void setSelected(CellPosition selectedPosition) {
     this.selectedPosition = selectedPosition;
   }

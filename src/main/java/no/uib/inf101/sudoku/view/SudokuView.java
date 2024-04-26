@@ -37,7 +37,7 @@ public class SudokuView extends JPanel{
  
   public SudokuView(ViewableSudokuModel model, int cellSize, int margin) {
     this.model = model;
-    this.board = model.getBoard();
+    this.board = (SudokuBoard) model.getDimension();
     this.colorTheme = new DefaultColorTheme();
     this.boardSize = (board.rows() * cellSize);
     this.cellSize = cellSize;
@@ -155,7 +155,6 @@ public class SudokuView extends JPanel{
       int value = model.getSelectedValue();
 
       if ((value > 0) && (!model.checkInput(pos))) {
-        //System.out.println("Invalid value in cell");
         cellTextColor = colorTheme.getWrongIntColor();
       }
       drawCell(g2, pos.row(), pos.col(), cellColor, cellTextColor);

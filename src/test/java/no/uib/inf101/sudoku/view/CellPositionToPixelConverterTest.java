@@ -12,6 +12,9 @@ import no.uib.inf101.sudoku.model.SudokuBoard;
 
 /*
  * The sanityTest from the tetris-package adjusted to fit sudoku.
+ * 
+ * Hentet fra tetris-rammeverket, men utvidet til å passe sudoku.
+ * Hentet 05.04.24
  */
 public class CellPositionToPixelConverterTest {
 

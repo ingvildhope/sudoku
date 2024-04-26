@@ -3,6 +3,7 @@ package no.uib.inf101.sudoku.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -11,8 +12,8 @@ import no.uib.inf101.grid.CellPosition;
 
 public class SudokuBoardTest {
   private SudokuBoard sBoard;
-  
   private SudokuBoard board = new SudokuBoard(9, 9);
+  
   private int[][] validTestBoard = 
     {{5, 3, 4, 6, 7, 8, 9, 1, 2},
      {6, 7, 2, 1, 9, 5, 3, 4, 8},
@@ -46,6 +47,17 @@ public class SudokuBoardTest {
      {2, 8, 7, 4, 1, 9, 6, 3, 5},
      {3, 4, 5, 2, 8, 6, 1, 7, 0}};
         
+  private int[][] emptyTestBoard = 
+    {{0, 0, 0, 0, 0, 0, 0, 0, 0},
+     {0, 0, 0, 0, 0, 0, 0, 0, 0},
+     {0, 0, 0, 0, 0, 0, 0, 0, 0},
+     {0, 0, 0, 0, 0, 0, 0, 0, 0},
+     {0, 0, 0, 0, 0, 0, 0, 0, 0},
+     {0, 0, 0, 0, 0, 0, 0, 0, 0},
+     {0, 0, 0, 0, 0, 0, 0, 0, 0},
+     {0, 0, 0, 0, 0, 0, 0, 0, 0},
+     {0, 0, 0, 0, 0, 0, 0, 0, 0}};
+
   @Test
   public void isValidSolutionTest() {
     board.fillBoard(validTestBoard);
@@ -95,6 +107,7 @@ public class SudokuBoardTest {
     SudokuBoard board = new SudokuBoard(9, 9);
     assertEquals(9, board.rows());
     assertEquals(9, board.cols());
+    assertNotNull(board);
   }
 
   @Test
@@ -123,5 +136,25 @@ public class SudokuBoardTest {
     System.out.println("board " + sBoard);
 
     assertFalse(sBoard.isValidMove(pos2, sBoard));
+  }
+
+  @Test
+  public void fillBoardTest() {
+    SudokuBoard board = new SudokuBoard(9, 9);
+    board.fillBoard(incompleteValidTestBoard);
+
+    CellPosition pos = new CellPosition(0, 0);
+    assertEquals(5, board.get(pos));
+  }
+
+  @Test
+  public void generateBoardTest() {
+    SudokuBoard board = new SudokuBoard(9, 9);
+    SudokuBoard emptyBoard = new SudokuBoard(9, 9);
+
+    board.generateBoard("Easy");
+    board.fillBoard(emptyTestBoard);
+
+    assertNotEquals(emptyBoard, board);
   }
 }

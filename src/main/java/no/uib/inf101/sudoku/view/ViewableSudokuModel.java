@@ -3,7 +3,6 @@ package no.uib.inf101.sudoku.view;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.sudoku.model.GameState;
-import no.uib.inf101.sudoku.model.SudokuBoard;
 
 public interface ViewableSudokuModel {
 
@@ -65,13 +64,6 @@ public interface ViewableSudokuModel {
    * @return the used solving the sudoku.
    */
   String getFormatedTime();
-
-  /**
-   * Returns the Sudoku board.
-   * 
-   * @return the Sudoku board.
-   */
-  SudokuBoard getBoard();
 
   /**
    * Retruns the number of times the time should be updated in a second.

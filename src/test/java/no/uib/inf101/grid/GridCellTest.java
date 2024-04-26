@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Testing the class GridCell
+ * 
+ * Hentet fra tetris-rammeverket, men utvidet til å passe sudoku.
+ * Hentet 05.04.24
  */
 public class GridCellTest {
 
